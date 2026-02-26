@@ -3,106 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Minutas</title>
+    <title>Calculadora de Minutas Notariales</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="app">
         <header>
             <h1>Calculadora de Minutas</h1>
-            <p class="subtitle">Calcula tus honorarios profesionales</p>
+            <p class="subtitle">Aranceles notariales &mdash; Cálculo de honorarios</p>
         </header>
 
         <main>
-            <!-- Cronómetro -->
-            <section class="card timer-card">
-                <h2>Cronómetro</h2>
-                <p class="timer-hint">Registra el tiempo dedicado a tu trabajo</p>
-                <div class="timer-display" id="timerDisplay">00:00:00</div>
-                <div class="timer-controls">
-                    <button class="btn btn-start" id="btnStart">Iniciar</button>
-                    <button class="btn btn-pause" id="btnPause" disabled>Pausar</button>
-                    <button class="btn btn-reset" id="btnReset" disabled>Reiniciar</button>
-                </div>
-            </section>
-
-            <!-- Configuración de tarifa -->
-            <section class="card rate-card">
-                <h2>Tarifa</h2>
+            <!-- Categoría -->
+            <section class="card">
+                <h2>Tipo de operación</h2>
                 <div class="form-group">
-                    <label for="ratePerHour">Precio por hora (€)</label>
-                    <input type="number" id="ratePerHour" placeholder="Ej: 80" min="0" step="0.01">
-                </div>
-                <div class="form-group">
-                    <label for="concept">Concepto</label>
-                    <select id="concept">
-                        <option value="">Selecciona un tipo</option>
-                        <option value="consulta">Consulta general</option>
-                        <option value="redaccion">Redacción de documentos</option>
-                        <option value="revision">Revisión de contratos</option>
-                        <option value="asesoria">Asesoría especializada</option>
-                        <option value="gestion">Gestión administrativa</option>
-                        <option value="otro">Otro</option>
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria">
+                        <option value="">Selecciona una categoría</option>
+                        <option value="inmobiliario">Inmobiliario</option>
+                        <option value="familia">Familia</option>
+                        <option value="mercantil">Mercantil</option>
+                        <option value="poderes">Poderes</option>
+                        <option value="sucesiones">Sucesiones</option>
+                        <option value="legitimaciones">Legitimaciones</option>
+                        <option value="testimonios">Testimonios</option>
+                        <option value="actas">Actas</option>
                     </select>
                 </div>
-                <div class="form-group" id="customConceptGroup" style="display:none;">
-                    <label for="customConcept">Concepto personalizado</label>
-                    <input type="text" id="customConcept" placeholder="Describe el concepto">
+                <div class="form-group" id="grupoSubtipo" style="display:none;">
+                    <label for="subtipo">Tipo de documento</label>
+                    <select id="subtipo">
+                        <option value="">Selecciona el tipo</option>
+                    </select>
                 </div>
             </section>
 
-            <!-- Conceptos adicionales -->
-            <section class="card extras-card">
-                <h2>Conceptos adicionales</h2>
-                <div id="extrasList">
-                    <!-- Se añaden dinámicamente -->
+            <!-- Datos del documento -->
+            <section class="card" id="seccionDatos" style="display:none;">
+                <h2>Datos del documento</h2>
+
+                <div class="form-group" id="grupoCuantia" style="display:none;">
+                    <label for="cuantia" id="labelCuantia">Cuantía de la operación (€)</label>
+                    <input type="text" id="cuantia" placeholder="Ej: 150.000,00" inputmode="decimal">
                 </div>
-                <button class="btn btn-add" id="btnAddExtra">+ Añadir concepto</button>
+
+                <div class="form-group" id="grupoFolios" style="display:none;">
+                    <label for="foliosMatriz">Folios de matriz</label>
+                    <input type="number" id="foliosMatriz" placeholder="Ej: 8" min="1" value="4">
+                </div>
+
+                <div class="form-group" id="grupoOtorgantes" style="display:none;">
+                    <label for="otorgantes" id="labelOtorgantes">Número de otorgantes</label>
+                    <input type="number" id="otorgantes" placeholder="Ej: 2" min="1" value="2">
+                </div>
+
+                <div class="form-group" id="grupoFincas" style="display:none;">
+                    <label for="numFincas">Número de fincas</label>
+                    <input type="number" id="numFincas" placeholder="Ej: 1" min="1" value="1">
+                </div>
+
+                <div class="form-group" id="grupoFirmas" style="display:none;">
+                    <label for="numFirmas">Número de firmas por documento</label>
+                    <input type="number" id="numFirmas" placeholder="Ej: 1" min="1" value="1">
+                </div>
+
+                <div class="form-group" id="grupoDocumentos" style="display:none;">
+                    <label for="numDocumentos">Número de documentos</label>
+                    <input type="number" id="numDocumentos" placeholder="Ej: 1" min="1" value="1">
+                </div>
+
+                <div class="form-group" id="grupoFoliosDoc" style="display:none;">
+                    <label for="foliosDocumento">Folios por documento</label>
+                    <input type="number" id="foliosDocumento" placeholder="Ej: 2" min="1" value="1">
+                </div>
             </section>
 
-            <!-- Cálculo -->
-            <section class="card result-card">
-                <h2>Resumen de la minuta</h2>
-                <button class="btn btn-calculate" id="btnCalculate">Calcular minuta</button>
+            <!-- Copias y extras -->
+            <section class="card" id="seccionCopias" style="display:none;">
+                <h2>Copias</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="copiasSimples">Copias simples</label>
+                        <input type="number" id="copiasSimples" min="0" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="foliosCopiaSimple">Folios por copia simple</label>
+                        <input type="number" id="foliosCopiaSimple" min="1" value="4">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="copiasAutorizadas">Copias autorizadas</label>
+                        <input type="number" id="copiasAutorizadas" min="0" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="foliosCopiaAutorizada">Folios por copia autorizada</label>
+                        <input type="number" id="foliosCopiaAutorizada" min="1" value="4">
+                    </div>
+                </div>
+                <div class="form-group" id="grupoCopiasElectronicas" style="display:none;">
+                    <label for="copiasElectronicas">Copias electrónicas</label>
+                    <input type="number" id="copiasElectronicas" min="0" value="1">
+                </div>
+            </section>
 
-                <div class="result-breakdown" id="resultBreakdown" style="display:none;">
-                    <div class="result-line">
-                        <span>Tiempo registrado</span>
-                        <span id="resultTime">--</span>
+            <!-- Opciones adicionales -->
+            <section class="card" id="seccionOpciones" style="display:none;">
+                <h2>Opciones adicionales</h2>
+
+                <div class="toggle-row" id="grupoEmpresa">
+                    <span class="toggle-label">¿El cliente es una empresa?</span>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" data-value="no" data-target="esEmpresa">No</button>
+                        <button class="toggle-btn" data-value="si" data-target="esEmpresa">Sí</button>
                     </div>
-                    <div class="result-line">
-                        <span>Tarifa/hora</span>
-                        <span id="resultRate">--</span>
+                    <input type="hidden" id="esEmpresa" value="no">
+                </div>
+
+                <div class="toggle-row" id="grupoSalida" style="display:none;">
+                    <span class="toggle-label">¿Sale el notario fuera del despacho?</span>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" data-value="no" data-target="salidaNotario">No</button>
+                        <button class="toggle-btn" data-value="si" data-target="salidaNotario">Sí</button>
                     </div>
-                    <div class="result-line">
-                        <span>Concepto principal</span>
-                        <span id="resultConcept">--</span>
+                    <input type="hidden" id="salidaNotario" value="no">
+                </div>
+
+                <div class="form-group" id="grupoHorasSalida" style="display:none;">
+                    <label for="horasSalida">Horas de desplazamiento</label>
+                    <input type="number" id="horasSalida" min="1" max="8" value="1">
+                </div>
+
+                <div class="toggle-row" id="grupoMensajeria" style="display:none;">
+                    <span class="toggle-label">¿Envío por mensajería?</span>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" data-value="no" data-target="mensajeria">No</button>
+                        <button class="toggle-btn" data-value="si" data-target="mensajeria">Sí</button>
+                    </div>
+                    <input type="hidden" id="mensajeria" value="no">
+                </div>
+            </section>
+
+            <!-- Calcular -->
+            <section class="card" id="seccionResultado" style="display:none;">
+                <h2>Resultado</h2>
+                <button class="btn btn-calculate" id="btnCalcular">Calcular minuta</button>
+
+                <div class="result-breakdown" id="desglose" style="display:none;">
+                    <div class="result-section-title">Concepto</div>
+                    <div class="result-line" id="lineaDocumento">
+                        <span id="resultTipoDoc">--</span>
+                        <span></span>
+                    </div>
+
+                    <div class="result-section-title">Honorarios</div>
+                    <div class="result-line" id="lineaArancel">
+                        <span>Arancel (documento)</span>
+                        <span id="resultArancel">--</span>
+                    </div>
+                    <div class="result-line" id="lineaFoliosMatriz" style="display:none;">
+                        <span>Exceso de folios de matriz</span>
+                        <span id="resultFoliosMatriz">--</span>
+                    </div>
+                    <div class="result-line" id="lineaCopiasSimples" style="display:none;">
+                        <span>Copias simples</span>
+                        <span id="resultCopiasSimples">--</span>
+                    </div>
+                    <div class="result-line" id="lineaCopiasAut" style="display:none;">
+                        <span>Copias autorizadas</span>
+                        <span id="resultCopiasAut">--</span>
+                    </div>
+                    <div class="result-line" id="lineaProtocolo" style="display:none;">
+                        <span>Protocolo electrónico</span>
+                        <span id="resultProtocolo">--</span>
                     </div>
                     <div class="result-line subtotal-line">
-                        <span>Subtotal por tiempo</span>
-                        <span id="resultSubtotalTime">--</span>
+                        <span>Total honorarios</span>
+                        <span id="resultHonorarios">--</span>
                     </div>
-                    <div id="resultExtras">
-                        <!-- Extras dinámicos -->
-                    </div>
-                    <div class="result-line subtotal-line">
-                        <span>Base imponible</span>
-                        <span id="resultBase">--</span>
-                    </div>
+
+                    <div class="result-section-title">Impuestos</div>
                     <div class="result-line">
                         <span>IVA (21%)</span>
                         <span id="resultIVA">--</span>
                     </div>
+                    <div class="result-line" id="lineaIRPF" style="display:none;">
+                        <span>IRPF (−15%)</span>
+                        <span id="resultIRPF">--</span>
+                    </div>
+
+                    <div class="result-section-title" id="tituloSuplidos" style="display:none;">Suplidos</div>
+                    <div class="result-line" id="lineaSalida" style="display:none;">
+                        <span>Salida del notario</span>
+                        <span id="resultSalida">--</span>
+                    </div>
+                    <div class="result-line" id="lineaMensajeria" style="display:none;">
+                        <span>Mensajería</span>
+                        <span id="resultMensajeria">--</span>
+                    </div>
+                    <div class="result-line subtotal-line" id="lineaTotalSuplidos" style="display:none;">
+                        <span>Total suplidos</span>
+                        <span id="resultSuplidos">--</span>
+                    </div>
+
                     <div class="result-line total-line">
-                        <span>TOTAL</span>
+                        <span>TOTAL A PAGAR</span>
                         <span id="resultTotal">--</span>
                     </div>
                 </div>
             </section>
+
+            <!-- Info aranceles -->
+            <section class="card info-card" id="seccionInfo" style="display:none;">
+                <h2>Detalle del cálculo</h2>
+                <div id="infoCalculo" class="info-text"></div>
+            </section>
         </main>
 
         <footer>
-            <p>Calculadora de Minutas &mdash; Herramienta de cálculo de honorarios</p>
+            <p>Calculadora de Minutas Notariales &mdash; Basada en aranceles notariales vigentes (RD 1426/1989)</p>
         </footer>
     </div>
 
