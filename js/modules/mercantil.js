@@ -1,26 +1,4 @@
-function formatear_cifras_moneda(parametro) {
-    result='';
-    if (parametro!= '') {
-    monto = Math.round(parametro* 100) / 100;
-    monto = new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR"}).format(monto);
-    result = monto;
-  }
-  return result;
-  }
-
-
-
-function cifras_moneda(parametro) {
-    monto = parseFloat($("#socio_"+parametro).val().replace(/\./g,'').replace(',','.'));
-    if (isNaN(monto))
-    {
-       $("#socio_"+parametro).addClass('border border-danger alert_input');
-        setTimeout(function(){$("#socio_"+parametro).removeClass('border border-danger alert_input'), $("#socio_"+parametro).val('')}, 1200);
-        return false;
-    }
-    monto=  formatear_cifras_moneda(monto);
-    $("#socio_"+parametro).val(monto);
-}
+// Funciones utilitarias (formatear_cifras_moneda, cifras_moneda): ver js/utils/helpers.js
 
 $(document).ready( function(){
     

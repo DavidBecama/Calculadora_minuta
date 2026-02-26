@@ -34,21 +34,4 @@ const folios_si_es_empresa=1;
 const acta_sin_cuantia=36.06;
 const entrega_documento_domicilio=25;
 
-// --------
-
-function convertir(num)
-{
-	var t = num.toString();
-	t = strReplace(t,'.',',');
-
-	var nf = new NumberFormat(t);
-	nf.setPlaces(2);
-	nf.setCurrency(false);
-	nf.setSeparators(true,nf.PERIOD,nf.COMMA);
-	return nf.toFormatted();
-}
-
-function strReplace(s, r, w)
-{
-	return s.split(r).join(w);
-}
+// Funciones utilitarias: ver js/utils/helpers.js

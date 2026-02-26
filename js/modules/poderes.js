@@ -1,19 +1,4 @@
-function convertir(num)
-{
-	var t = num.toString();
-	t = strReplace(t,'.',',');
-
-	var nf = new NumberFormat(t);
-	nf.setPlaces(2);
-	nf.setCurrency(false);
-	nf.setSeparators(true,nf.PERIOD,nf.COMMA);
-	return nf.toFormatted();
-}
-
-function strReplace(s, r, w)
-{
-	return s.split(r).join(w);
-}
+// Funciones utilitarias (convertir, strReplace): ver js/utils/helpers.js
 
 function actualitza_pagament(coste,suplido,empresa)
 { 

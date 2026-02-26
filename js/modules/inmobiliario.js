@@ -1,42 +1,6 @@
 var tipos_inmobiliario_conNfincas =["COMP","PRES","NOSU","ARRA","EDCO","OPCO"];
 
-function convertir(num)
-{
-	var t = num.toString();
-	t = strReplace(t,'.',',');
-
-	var nf = new NumberFormat(t);
-	nf.setPlaces(2);
-	nf.setCurrency(false);
-	nf.setSeparators(true,nf.PERIOD,nf.COMMA);
-	return nf.toFormatted();
-}
-
-function strReplace(s, r, w)
-{
-	return s.split(r).join(w);
-}
-
-function in_array(needle, haystack) {
-	var length = haystack.length;
-	for(var i = 0; i < length; i++) {
-		if(haystack[i] == needle) return true;
-	}
-	return false;
-}
-
-function formatear_cifras_porcent(parametro) {
-	result='';
-	if (parametro!= '') {
-		monto =parametro.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
-		console.log(monto);
-		monto =parametro.replace(',','.');
-		monto = Math.floor(monto*100) / 100 /100;
-		monto = new Intl.NumberFormat("es-ES", {style: "percent",minimumFractionDigits: 2,maximumFractionDigits: 2}).format(monto);
-		result = monto;
-	}
-	return result;
-}
+// Funciones utilitarias (convertir, strReplace, in_array, formatear_cifras_porcent): ver js/utils/helpers.js
 
 $(document).ready( function(){
 	// ================onChange del select tipo Inmobiliario=====================
